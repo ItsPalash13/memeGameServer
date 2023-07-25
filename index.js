@@ -27,6 +27,7 @@ const io = new Server(httpServer, {
 
 let timerInterval;
 
+
 io.on('connection', (socket) => {
   console.log('A user connected');
   var udata={}
@@ -124,12 +125,13 @@ io.on('connection', (socket) => {
     console.log('A user disconnected',udata);
     result = await deleteData(udata.room,udata.user);
     publisher.publish('Channel1', JSON.stringify({cmd:"delplyr",data:{room:udata.room,p:udata.user}}));
-    io.to(udata.room).emit('playerlistcheck', result.data);
     
     try {
+      io.to(udata.room).emit('playerlistcheck', result.data);
       if (result&&result.ep&&Object.keys(result.data).length==2){
         console.log("Endsssss")
         clearInterval(timerInterval)
+        await client.json.set(udata.room,"gamestate.state","endgame");
         io.to(udata.room).emit('endgame', {data:result.data,ep:result.ep});
         return;
       }
@@ -180,7 +182,8 @@ async function Reinitiate(room) {
 async function GamestepRating(room) {
   console.log("GamestepRating",room)
   try{
-    const data = await client.json.get(room);
+  const data = await client.json.get(room);
+  if (data&&data.gamestate&&data.gamestate.state&&data.gamestate.state==="endgame"){return}
   s=data.gamestate.playerdata
   delete data.gamestate;
   var f=0
@@ -219,9 +222,9 @@ async function GamestepRating(room) {
 async function GamestepCaptioning(room) {
   console.log("GamestepCaptioning",room)
   const data = await client.json.get(room);
- 
-    await client.json.set(room,"gamestate.state","showingimg");
-    io.to(room).emit('gamestepcaptioning', {img:data.gamestate.curimg});
+  if (data&&data.gamestate&&data.gamestate.state&&data.gamestate.state==="endgame"){return}
+  await client.json.set(room,"gamestate.state","showingimg");
+  io.to(room).emit('gamestepcaptioning', {img:data.gamestate.curimg});
 
     let timerData = data.gamestate.maxtime;
     clearInterval(timerInterval);
@@ -238,6 +241,8 @@ async function GamestepCaptioning(room) {
 
 async function checkTotalCaptions(room) {
   const ud = await client.json.get(room);
+  data=ud
+  if (data&&data.gamestate&&data.gamestate.state&&data.gamestate.state==="endgame"){return}
   try{
     for(var i in ud.gamestate.playerdata) {
       return; 
@@ -250,6 +255,8 @@ async function checkTotalCaptions(room) {
 
 async function checkTotalRatings(room) {
   const ud = await client.json.get(room);
+  data = ud
+  if (data&&data.gamestate&&data.gamestate.state&&data.gamestate.state==="endgame"){return}
   let s;
   if (ud !== null && ud.hasOwnProperty("gamestate")) {
          s=ud.gamestate;
@@ -283,6 +290,8 @@ function emptyjson(j){
 
 async function calculate_send_set_reset_score(room) {
   json = await client.json.get(room);
+  data = json
+  if (data&&data.gamestate&&data.gamestate.state&&data.gamestate.state==="endgame"){return}
   maxep=json.gamestate.maxep
   ep=json.gamestate.curep
   g=json.gamestate.scores
@@ -319,6 +328,7 @@ async function fetchData(room) {
 
 async function deleteData(room,user) {
   const data = await client.json.get(room);
+  if (data&&data.gamestate&&data.gamestate.state&&data.gamestate.state==="endgame"){return}
   var s;
   if (data && data.hasOwnProperty('gamestate')) {
     s=data.gamestate
