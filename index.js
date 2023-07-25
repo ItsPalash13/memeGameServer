@@ -132,6 +132,7 @@ io.on('connection', (socket) => {
         console.log("Endsssss")
         clearInterval(timerInterval)
         await client.json.set(udata.room,"gamestate.state","endgame");
+        
         io.to(udata.room).emit('endgame', {data:result.data,ep:result.ep});
         return;
       }
@@ -328,7 +329,7 @@ async function fetchData(room) {
 
 async function deleteData(room,user) {
   const data = await client.json.get(room);
-  if (data&&data.gamestate&&data.gamestate.state&&data.gamestate.state==="endgame"){return}
+  
   var s;
   if (data && data.hasOwnProperty('gamestate')) {
     s=data.gamestate
