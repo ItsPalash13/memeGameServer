@@ -1,7 +1,7 @@
 const express = require('express')
 const redis = require('redis');
 const bodyParser = require('body-parser');
-
+const axios = require('axios');
 const cors = require('cors');
 
 const app = express()
@@ -160,8 +160,8 @@ async function Reinitiate(room) {
   try {
     const t = Math.floor(Math.random()*tagslength)
 
-    const response = await fetch("https://tenor.googleapis.com/v2/search?key=AIzaSyBkDP4GVAUGNkg8zGXz-8p5kTq6Hcy3uVA&q="+tags[t][0]);
-    const data = await response.json();
+    const response = await axios("https://tenor.googleapis.com/v2/search?key=AIzaSyBkDP4GVAUGNkg8zGXz-8p5kTq6Hcy3uVA&q="+tags[t][0]);
+    const data = await response.data;
     
     const gifs = data.results[Math.floor(Math.random() * tags[t][1])].media_formats.mp4.url
     await client.json.set(room,"gamestate.curimg",gifs);
