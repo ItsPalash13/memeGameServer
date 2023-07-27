@@ -158,8 +158,7 @@ io.on('connection', (socket) => {
 
 });
 
-const tags = ["arpitbala","craig ferguson", "Funny", "Hilarious", "Cute", "WTF", "Savage", "Relatable", "Fails", "Epic", "ROFL", "Mood", "Facepalm", "Awkward", "GIF", "Viral", "Pranks", "Trending", "Failures", "Laughs", "Pets", "Food", "Silly", "Reactions", "Dank", "Animals", "Parenting", "Witty", "Sarcastic", "Movies", "TV Shows", "Games", "Cartoons", "Anime", "Nostalgia", "Sports", "Dance", "Party", "Work", "School", "Weekend", "Gym", "Selfie", "Friends", "Family", "Relationships", "Celebrities", "Internet", "Technology", "Video Games", "Books", "Fashion", "Travel", "Weather", "Failblog", "Pranksters", "Memes", "Meme-lords", "Internet", "Social Media", "Vines", "TikTok", "YouTube", "Cats", "Dogs", "Puns", "Cringe", "Awkward", "Laughs", "Viral", "Hilarious", "Epic Fails", "Facepalm", "Savage", "ROFL", "LOL", "Funny GIFs", "Mood", "Reactions", "Cute", "Dank Memes", "WTF", "Failures", "Pranks", "Trending", "Famous Memes", "GIF Reactions", "Awkward Moments", "Parenting Fails", "Cat Memes", "Dog Memes", "Classic Memes", "Pop Culture", "Movie Memes", "TV Show Memes", "Video Game Memes", "Celebrity Memes", "Internet Culture"];
-
+const tags = ["cat","arpitbala","craig ferguson","dog","family guy","tmkoc","funny","your mom","surprised","fucked","launghing","bhabhi ji ghar par hai"]
 const tagslength=98
 async function Reinitiate(room) {
   try {
