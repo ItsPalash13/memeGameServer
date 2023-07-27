@@ -157,16 +157,18 @@ io.on('connection', (socket) => {
   });
 
 });
-const tags = [["arpitbala",12],["craig ferguson",20]]
-const tagslength=2
+
+const tags = ["arpitbala","craig ferguson", "Funny", "Hilarious", "Cute", "WTF", "Savage", "Relatable", "Fails", "Epic", "ROFL", "Mood", "Facepalm", "Awkward", "GIF", "Viral", "Pranks", "Trending", "Failures", "Laughs", "Pets", "Food", "Silly", "Reactions", "Dank", "Animals", "Parenting", "Witty", "Sarcastic", "Movies", "TV Shows", "Games", "Cartoons", "Anime", "Nostalgia", "Sports", "Dance", "Party", "Work", "School", "Weekend", "Gym", "Selfie", "Friends", "Family", "Relationships", "Celebrities", "Internet", "Technology", "Video Games", "Books", "Fashion", "Travel", "Weather", "Failblog", "Pranksters", "Memes", "Meme-lords", "Internet", "Social Media", "Vines", "TikTok", "YouTube", "Cats", "Dogs", "Puns", "Cringe", "Awkward", "Laughs", "Viral", "Hilarious", "Epic Fails", "Facepalm", "Savage", "ROFL", "LOL", "Funny GIFs", "Mood", "Reactions", "Cute", "Dank Memes", "WTF", "Failures", "Pranks", "Trending", "Famous Memes", "GIF Reactions", "Awkward Moments", "Parenting Fails", "Cat Memes", "Dog Memes", "Classic Memes", "Pop Culture", "Movie Memes", "TV Show Memes", "Video Game Memes", "Celebrity Memes", "Internet Culture"];
+
+const tagslength=98
 async function Reinitiate(room) {
   try {
     const t = Math.floor(Math.random()*tagslength)
 
-    const response = await axios("https://tenor.googleapis.com/v2/search?key=AIzaSyBkDP4GVAUGNkg8zGXz-8p5kTq6Hcy3uVA&q="+tags[t][0]);
+    const response = await axios("https://tenor.googleapis.com/v2/search?key=AIzaSyBkDP4GVAUGNkg8zGXz-8p5kTq6Hcy3uVA&q="+tags[t]);
     const data = await response.data;
     
-    const gifs = data.results[Math.floor(Math.random() * tags[t][1])].media_formats.mp4.url
+    const gifs = data.results[Math.floor(Math.random() * data.results.length)].media_formats.mp4.url
     await client.json.set(room,"gamestate.curimg",gifs);
      
     const ud = await client.json.get(room);
