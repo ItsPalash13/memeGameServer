@@ -27,6 +27,10 @@ const io = new Server(httpServer, {
 
 let timerInterval;
 
+app.get('/hello', async (req, res) => {
+  res.send("hello");
+  console.log("hello");
+})
 
 io.on('connection', (socket) => {
   console.log('A user connected');
