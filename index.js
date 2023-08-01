@@ -163,15 +163,15 @@ io.on('connection', (socket) => {
 });
 
 const tags = ["cat","arpitbala","craig ferguson","dog","family guy","tmkoc","funny","your mom","surprised","fucked","launghing","bhabhi ji ghar par hai"]
-const tagslength=98
+
 async function Reinitiate(room) {
   try {
-    const t = Math.floor(Math.random()*tagslength)
+    const t = Math.floor(Math.random()*tags.length)
 
     const response = await axios("https://tenor.googleapis.com/v2/search?key=AIzaSyBkDP4GVAUGNkg8zGXz-8p5kTq6Hcy3uVA&q="+tags[t]);
     const data = await response.data;
     
-    const gifs = data.results[Math.floor(Math.random() * data.results.length)].media_formats.mp4.url
+    const gifs = data.results[Math.floor(Math.random() * 15)].media_formats.mp4.url
     await client.json.set(room,"gamestate.curimg",gifs);
      
     const ud = await client.json.get(room);
