@@ -207,7 +207,7 @@ async function GamestepRating(room) {
   await client.json.set(room,"gamestate.state","ratingimg");
   io.to(room).emit('gamesteprating', {data:data});
 
-  let timerData = 45;
+  let timerData = 60;
   clearInterval(timerInterval);
   timerInterval = setInterval( async () => {
     io.to(room).emit('time', timerData);
