@@ -162,7 +162,7 @@ io.on('connection', (socket) => {
 
 });
 
-const tags = ["cat","arpitbala","craig ferguson","dog","family guy","tmkoc","funny","your mom","surprised","fucked","launghing","bhabhi ji ghar par hai"]
+const tags = ["cat","arpitbala","craig ferguson","mirzapur","family guy","tmkoc","funny","your mom","surprised","fucked","launghing","bhabhi ji ghar par hai","bitch","family man"]
 
 async function Reinitiate(room) {
   try {
