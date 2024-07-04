@@ -380,11 +380,12 @@ httpServer.listen(port, () => {
 
 const client = redis.createClient({
     socket:{
-    host: 'redis-14242.c212.ap-south-1-1.ec2.cloud.redislabs.com',
-    port: 14242},
-    username: 'default',
-    password: 'i3haNf9pcuzokuc7pGmVmNz7TA4dRtiF',
+    host: 'redis-15400.c257.us-east-1-3.ec2.redns.redis-cloud.com',
+    port: 15400},
+    username:'default',
+    password: 'gVoXsIfzGLLxfYpwtGKXzf2uYO4ACLGO'
   });
+
 client.connect();
 const subscriber = client.duplicate();
 const publisher = client.duplicate();
